@@ -1,0 +1,26 @@
+import numpy as np
+
+# Binomial random variable
+
+# number of trials 
+n = 10 
+# success probability
+p = 0.2 
+# generate a binomial random variable
+s = np.random.binomial(n, p)
+
+# generate a sequence of binomial random variables
+size = 10000
+dist = np.random.binomial(n, p, size)
+
+# empirical mean
+print(dist.mean())
+
+# theoretical mean
+print(n*p)
+
+# empirical standard deviation
+print(dist.std())
+
+# theoretical standard deviation
+print(np.sqrt(n*p*(1-p)))
