@@ -24,3 +24,17 @@ print(dist.std())
 
 # theoretical standard deviation
 print(np.sqrt(n*p*(1-p)))
+
+# generate a sequence of standard normal random variables
+s = np.random.randn(1000)
+
+print(s.mean())
+print(s.std())
+
+# generate a sequence of normal random variables
+mean = 1
+std = 2
+s = mean + std * np.random.randn(1000)
+
+print(s.mean())
+print(s.std())
