@@ -38,3 +38,15 @@ s = mean + std * np.random.randn(1000)
 
 print(s.mean())
 print(s.std())
+
+# find the z-value for 0.95, 0.975, 0.99
+from scipy.stats import norm
+
+z = {}
+for i in [0.95, 0.975, 0.99]:
+    z[i] = norm.ppf(i)
+    print(z[i])
+
+# double check
+for i in [0.95, 0.975, 0.99]:
+    print(norm.cdf(z[i]))
