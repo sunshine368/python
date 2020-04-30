@@ -63,3 +63,31 @@ for i in [0.95, 0.975, 0.99]:
 # double check
 for i in [0.95, 0.975, 0.99]:
     print(t.cdf(s[i],dof))
+
+# use normal probability plot to check whether the data comes from a normal distribution
+from scipy import stats
+import matplotlib.pyplot as plt
+nsample = 100
+np.random.seed(7654321)
+
+# a t distribution with small degrees of freedom
+ax1 = plt.subplot(221)
+x = stats.t.rvs(3, size=nsample)
+res = stats.probplot(x, plot=plt)
+
+# a t distribution with large degrees of freedom
+ax2 = plt.subplot(222)
+x = stats.t.rvs(25, size=nsample)
+res = stats.probplot(x, plot=plt)
+
+# a mixture of two normal distributions with broadcasting
+ax3 = plt.subplot(223)
+x = stats.norm.rvs(loc=[0,5], scale=[1,1.5], size=(nsample//2,2)).ravel()
+res = stats.probplot(x, plot=plt)
+
+# a standard normal distribution
+ax3 = plt.subplot(224)
+x = stats.norm.rvs(loc=0, scale=1, size=nsample)
+res = stats.probplot(x, plot=plt)
+
+plt.show()
