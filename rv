@@ -50,3 +50,16 @@ for i in [0.95, 0.975, 0.99]:
 # double check
 for i in [0.95, 0.975, 0.99]:
     print(norm.cdf(z[i]))
+
+# find the t-value with degrees of freedom = 20 for 0.95, 0.975, 0.99
+from scipy.stats import t
+
+s = {}
+dof = 20
+for i in [0.95, 0.975, 0.99]:
+    s[i] = t.ppf(i,dof)
+    print(s[i])
+
+# double check
+for i in [0.95, 0.975, 0.99]:
+    print(t.cdf(s[i],dof))
