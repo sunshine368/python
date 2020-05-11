@@ -63,7 +63,7 @@ for i in [0.95, 0.975, 0.99]:
 # double check
 for i in [0.95, 0.975, 0.99]:
     print(t.cdf(s[i],dof))
-
+    
 # use normal probability plot to check whether the data comes from a normal distribution
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -91,3 +91,46 @@ x = stats.norm.rvs(loc=0, scale=1, size=nsample)
 res = stats.probplot(x, plot=plt)
 
 plt.show()
+
+
+# simple linear regression
+import statsmodels.api as sm # import statsmodels 
+
+X = [4,4,4,5,5,6,7,7,8,8,8,9,9,10,10,11,12,13] 
+y = [6200,5700,6800,5600,4500,4900,4600,4300,4200,4500,4000,3200,3100,2500,2100,2600,2400,2200] 
+
+# check the 4 assumptions of linear regression
+import matplotlib.pyplot as plt
+
+# Assumption 1: linearity between X and Y
+plt.scatter(X,y)
+
+X = sm.add_constant(X) ## let's add an intercept (beta_0) to our model
+
+# Note the difference in argument order
+model = sm.OLS(y, X).fit() 
+predictions = model.predict(X)
+
+# Assumption 2: independence between residuals and Y
+residuals = y - predictions
+plt.scatter(predictions, residuals) 
+
+# Assumption 3: normality of residuals
+from scipy import stats
+fig = plt.figure()
+res = stats.probplot(residuals, plot=plt)
+plt.show()
+
+# Assumption 4: equal variance of residuals wrt X
+# the same plot as assumption 2
+
+# Print out the statistics
+model.summary()
+
+# predict the price of a 7-year-old car
+price = 7850 - 485*7
+print(price)
+
+# historgram of data
+import seaborn as sns
+sns.distplot([3.8, 5.3, 3.5, 4.5, 7.2, 5.1])
